@@ -7,29 +7,25 @@ public class MovementScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(0, 0, 0);
+        Debug.Log("Welcome to our game!");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.W))
+        { 
+            transform.Translate(transform.forward * Time.deltaTime) ;
+        }   
+        if (Input.GetKey(KeyCode.D))
         {
-        transform.position += new Vector3(1, 0, 0);
+            transform.Rotate(0,1,0);
         }
-        if(Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
-        transform.position -= new Vector3(1, 0, 0);
+            transform.Rotate(0,-1,0);
         }
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-            transform.position += new Vector3(0, 1, 0);
-        }
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            transform.position -= new Vector3(0, 1, 0);
-        }    
-        // deactivates and activates visibility of object
+        // M deactivates and activates visibility of object
         if (Input.GetKeyDown(KeyCode.M))
         {
             if(GetComponent<MeshRenderer>().enabled)
@@ -41,6 +37,18 @@ public class MovementScript : MonoBehaviour
                 GetComponent<MeshRenderer>().enabled = true;
             }
         }    
+        
+    }
+    void OnCollisionEnter(Collision col)
+    {
+        Debug.Log("My cube has touched " + col.gameObject.name);
+    }
+    void OnCollisionExit(Collision collision)
+    {
+        Debug.Log("My cube has lost touche with " + collision.gameObject.name);
+    }
+    void OnCollisionStay(Collision collision)
+    {
         
     }
 }
